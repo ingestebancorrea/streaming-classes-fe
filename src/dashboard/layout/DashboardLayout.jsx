@@ -1,4 +1,4 @@
-import { Box, Grid, Toolbar } from "@mui/material";
+import { Grid, Toolbar } from "@mui/material";
 import { NavBar, SideBar } from "../components";
 
 export const DashboardLayout = ({ children }) => {

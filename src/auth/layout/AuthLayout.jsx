@@ -1,5 +1,4 @@
-import { Avatar, Box, Grid, Typography } from "@mui/material"
-import logo from '../../assets/Logo.png';
+import { Grid, Typography } from "@mui/material"
 
 export const AuthLayout = ({ children, title = '' }) => {
     return (
