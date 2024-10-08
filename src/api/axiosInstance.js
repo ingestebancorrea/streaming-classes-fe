@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { store } from '../store/store';
 
 export const axiosInstance = axios.create({
     headers: { 'Content-Type': 'application/json' },
@@ -7,7 +6,7 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-    const { auth: { token } } = store.getState();
+    const token = localStorage.getItem('token');
 
     if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;

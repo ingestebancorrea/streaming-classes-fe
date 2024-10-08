@@ -26,9 +26,16 @@ export const authSlice = createSlice({
         },
         checkingCredentials: (state) => {
             state.status = 'checking';
+        },
+        revalidateToken: (state, { payload }) => {
+            state.status = 'authenticated';
+            state.id = payload.id;
+            state.name = payload.name;
+            state.token = payload.token;
+            state.errorMessage = null;
         }
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { login, logout, checkingCredentials } = authSlice.actions;
+export const { login, logout, checkingCredentials, revalidateToken } = authSlice.actions;

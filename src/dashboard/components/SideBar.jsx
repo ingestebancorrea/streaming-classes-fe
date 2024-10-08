@@ -1,20 +1,79 @@
-import { Avatar, Box, Divider, Typography } from "@mui/material"
-import { useSelector } from "react-redux"
+import { useEffect } from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { Controller, useForm } from "react-hook-form";
+import { useFetchData } from "../../hooks/useFetchData";
+import { MessageCard } from "./MessageCard";
+import { useAxiosPost } from "../../hooks/usePostAxios";
 
 export const SideBar = () => {
+    const url = `${import.meta.env.VITE_API_URL}/messages`;
+    const { fetchData, data } = useFetchData();
+    const { control, handleSubmit, reset } = useForm({
+        defaultValues: {
+            message: ''
+        }
+    });
+    const { postData, data: response } = useAxiosPost();
 
-    const auth = useSelector(state => state.auth);
+    useEffect(() => {
+        fetchData(`/messages/class/1`);
+    }, [response]);
+
+    const onSubmit = async (data) => {
+        const { message } = data;
+        const now = new Date();
+        await postData(url, { message, date: now, id_class: 1 });
+        reset({
+            message: ""
+        });
+    };
 
     return (
-        <Box component="div" sx={{ p: '20px' }}>
-            <Avatar
-                alt="Descripción de la imagen"
-                src={ auth.photoURL }
-                sx={{ width: '60px', height: '60px' }}
-            />
+        <Box
+            component="div"
+            sx={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                maxHeight: '90vh', // Set a maximum height
+                padding: 2,
+                backgroundColor: '#f5f5f5', // Optional background color
+                borderRadius: '5px' // Optional border radius
+            }}
+        >
+            <Box
+                sx={{
+                    flex: 1,
+                    overflowY: 'auto', // Allow vertical scrolling for messages
+                    marginBottom: 2 // Add margin to separate from the button
+                }}
+            >
+                <Typography variant="h6" sx={{ paddingLeft: 1, paddingTop: 2 }}>
+                    Mensajes
+                </Typography>
 
-            <Typography>{ auth.name }</Typography>
-            <Divider />     
+                {data.length > 0 && data.map(message => (
+                    <MessageCard key={message.id} message={message} />
+                ))}
+            </Box>
+
+            <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', padding: 0 }}>
+                <Controller
+                    name="message"
+                    control={control}
+                    render={({ field }) => (
+                        <TextField
+                            {...field}
+                            label="Enviar un mensaje"
+                            variant="outlined"
+                            size="small"
+                            sx={{ marginRight: 1, width: "80%" }}
+                        />
+                    )}
+                />
+                <Button type="submit" variant="contained" color="primary">Enviar</Button>
+            </form>
         </Box>
-    )
-}
+    );
+};

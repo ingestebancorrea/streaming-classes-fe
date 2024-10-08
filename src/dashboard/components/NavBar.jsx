@@ -1,4 +1,4 @@
-import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
+import { LogoutOutlined } from '@mui/icons-material';
 import { AppBar, Avatar, Grid, IconButton, Toolbar } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import logo from '../../assets/logo.png';
@@ -22,16 +22,6 @@ export const NavBar = ({ drawerWidth = 240 }) => {
             }}
         >
             <Toolbar>
-                {/* Icono de hamburguesa, visible solo en pantallas pequeñas */}
-                <IconButton
-                    color='inherit'
-                    edge='start'
-                    sx={{ mr: 2, display: { xs: 'flex', sm: 'none' } }} // Cambia aquí
-                    aria-label="open drawer"
-                >
-                    <MenuOutlined />
-                </IconButton>
-
                 <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                     <Avatar
                         alt="Logo de la aplicación"

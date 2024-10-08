@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import { Typography, CircularProgress, Box } from "@mui/material";
 import { DashboardLayout } from "../layout/DashboardLayout";
 import { useFetchData } from "../../hooks/useFetchData";
-import { useEffect } from "react";
 
 export const ClassPage = () => {
   const { fetchData, data } = useFetchData();
@@ -10,7 +10,6 @@ export const ClassPage = () => {
     fetchData(`/class`);
   }, []);
 
-  console.log("data", data[0]);
   if (!data) {
     return (
       <DashboardLayout>
@@ -38,7 +37,6 @@ export const ClassPage = () => {
               style={{ width: '100%', height: '100%', border: '0px' }}
               src={data[0].video_url}
               title={data[0].name}
-              frameBorder="0"
               allowFullScreen
             ></iframe>
           )}
