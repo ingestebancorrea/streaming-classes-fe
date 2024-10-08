@@ -42,7 +42,7 @@ export const SelectRolePage = () => {
           }}
         >
           <Typography variant="h5" mb={4}>
-            Selecciona tu Rol
+            Selecciona tu rol
           </Typography>
         </Box>
 
@@ -63,7 +63,7 @@ export const SelectRolePage = () => {
                 bgcolor: 'white',
               }}
             >
-              <Button variant='outlined' value="ESTUDIANTE" onClick={handleButtonClick}>Estudiante</Button>
+              <Button variant='outlined' value="STD" onClick={handleButtonClick}>Estudiante</Button>
             </Box>
           </Grid>
 
@@ -83,7 +83,7 @@ export const SelectRolePage = () => {
                 bgcolor: 'white',
               }}
             >
-              <Button variant='outlined' value="MODERADOR" onClick={handleButtonClick}>Moderador</Button>
+              <Button variant='outlined' value="MOD" onClick={handleButtonClick}>Moderador</Button>
             </Box>
           </Grid>
         </Grid>
