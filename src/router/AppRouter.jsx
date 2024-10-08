@@ -5,25 +5,29 @@ import { AuthRoutes } from "../auth/routes/AuthRoutes"
 import { DashboardRoutes } from "../dashboard/routes/DashboardRoutes"
 import { Loader } from "../components/Loader";
 import { useFetchData } from "../hooks/useFetchData";
-import { revalidateToken } from "../store/auth";
+import { logout, revalidateToken } from "../store/auth";
 
 export const AppRouter = () => {
 
   const dispatch = useDispatch();
   const { status } = useSelector(state => state.auth);
-  const { fetchData, data: response } = useFetchData();
+  const { fetchData, data: response, isLoading } = useFetchData();
 
   useEffect(() => {
     const renewToken = async () => {
       await fetchData('/auth/renew');
-
-      if (response) {
-        dispatch(revalidateToken(response));
-      }
     };
-    
+
     renewToken();
   }, []);
+
+  useEffect(() => {
+    if (response && response.ok) {
+      dispatch(revalidateToken(response.data));
+    }else {
+      dispatch(logout());
+    }
+  }, [isLoading]);
 
   if (status === 'checking') {
     return <Loader />

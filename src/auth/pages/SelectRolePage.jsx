@@ -9,7 +9,6 @@ export const SelectRolePage = () => {
 
   const handleButtonClick = (event) => {
     const aliasRole = event.target.value;
-
     navigate(`/auth/register?role=${aliasRole}`);
   };
 
@@ -20,15 +19,16 @@ export const SelectRolePage = () => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
+      sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 2 }}
     >
       <Grid
         item
-        xs={3}
+        xs={10} sm={8} md={6} // Ancho responsivo
         sx={{
-          width: { sm: 580 },
           padding: 3,
-          
+          bgcolor: 'white',
+          borderRadius: 1,
+          boxShadow: 2,
         }}
       >
         <Box
@@ -37,21 +37,27 @@ export const SelectRolePage = () => {
             pt: '5px',
             display: 'flex',
             justifyContent: 'center',
-            bgcolor: 'white',
-            borderRadius: 0.5
+            bgcolor: 'primary.main',
+            borderRadius: 0.5,
+            mb: 2,
           }}
         >
-          <Typography variant="h5" mb={4}>
+          <Typography variant="h5" color="white">
             Selecciona tu rol
           </Typography>
         </Box>
 
-        <Grid container direction="row" sx={{ width: "auto" }}>
-          <Grid item xs={12} sm={6}>
+        <Grid 
+          container 
+          spacing={2} 
+          justifyContent="center" 
+          direction={{ xs: 'column', sm: 'row' }} // Cambia la dirección según el tamaño de la pantalla
+        >
+          <Grid item xs={12} sm={4}>
             <Avatar
-              alt="Descripción de la imagen"
+              alt="Estudiante"
               src={estudiante}
-              sx={{ width: 266, height: '100%', mx: 'auto', borderRadius: 0 }}
+              sx={{ width: '100%', height: 'auto', mx: 'auto', borderRadius: 0 }}
             />
             <Box
               sx={{
@@ -63,15 +69,17 @@ export const SelectRolePage = () => {
                 bgcolor: 'white',
               }}
             >
-              <Button variant='outlined' value="STD" onClick={handleButtonClick}>Estudiante</Button>
+              <Button variant='outlined' value="STD" onClick={handleButtonClick}>
+                Estudiante
+              </Button>
             </Box>
           </Grid>
 
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <Avatar
-              alt="Descripción de la imagen"
+              alt="Moderador"
               src={profesor}
-              sx={{ width: 266, height: '100%', mx: 'auto', borderRadius: 0 }}
+              sx={{ width: '100%', height: 'auto', mx: 'auto', borderRadius: 0 }}
             />
             <Box
               sx={{
@@ -83,11 +91,12 @@ export const SelectRolePage = () => {
                 bgcolor: 'white',
               }}
             >
-              <Button variant='outlined' value="MOD" onClick={handleButtonClick}>Moderador</Button>
+              <Button variant='outlined' value="MOD" onClick={handleButtonClick}>
+                Moderador
+              </Button>
             </Box>
           </Grid>
         </Grid>
-
       </Grid>
     </Grid>
   );

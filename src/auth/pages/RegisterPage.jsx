@@ -28,8 +28,9 @@ export const RegisterPage = () => {
 
   useEffect(() => {
     if (response && response.ok) {
-      const { id, username, name } = response.data;
-      dispatch(login({ id, username, name }));
+      const { id, username, name, token } = response.data;
+      dispatch(login({ id, username, name, token }));
+      localStorage.setItem('token', token);
     }
   }, [response]);
 

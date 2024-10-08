@@ -7,7 +7,7 @@ import { useAxiosPost } from "../../hooks/usePostAxios";
 
 export const SideBar = () => {
     const url = `${import.meta.env.VITE_API_URL}/messages`;
-    const { fetchData, data } = useFetchData();
+    const { fetchData, data: responseFecth } = useFetchData();
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             message: ''
@@ -16,8 +16,12 @@ export const SideBar = () => {
     const { postData, data: response } = useAxiosPost();
 
     useEffect(() => {
-        fetchData(`/messages/class/1`);
-    }, [response]);
+        const fetchMessageData = async () => {
+            await fetchData(`/messages/class/1`);
+        };
+
+        fetchMessageData();
+    }, []);
 
     const onSubmit = async (data) => {
         const { message } = data;
@@ -53,7 +57,7 @@ export const SideBar = () => {
                     Mensajes
                 </Typography>
 
-                {data.length > 0 && data.map(message => (
+                {responseFecth&& responseFecth.data && responseFecth.data.length > 0 && responseFecth.data.map(message => (
                     <MessageCard key={message.id} message={message} />
                 ))}
             </Box>
